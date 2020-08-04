@@ -23,13 +23,13 @@ class OctocloakconnectPlugin(octoprint.plugin.StartupPlugin,
 		self._logger.info("OctocloakConnect AfterStartup Hook (more: %s)" % self._settings.get(["proxy"]))
 
 	def get_settings_defaults(self):
-		return dict(
-			proxy="localhost",
-			headers=dict(
-				user="X-Vouch-User",
-				authorization="Authorization"
-			)
-		)
+		return {
+			"proxy": "localhost",
+			"headers": {
+				"user": "X-Vouch-User",
+				"authorization": "Authorization"
+			}
+		}
 
 	def save_settings(self):
 		self._logger.info("Saving settings to config.yaml")
