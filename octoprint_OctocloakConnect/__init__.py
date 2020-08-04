@@ -30,6 +30,17 @@ class OctocloakconnectPlugin(octoprint.plugin.StartupPlugin,
 			)
 		)
 
+	def save_settings(self):
+		self._logger.info("Saving settings to config.yaml")
+		try:
+			success = self._settings.save()  # This might also save settings that we didn't intend to save...
+			self._logger.info("Was saving needed? " + str(success))
+		except:
+			self._logger.exception("Save settings failed")
+
+	def on_shutdown(self):
+		self._logger.info("Shutting down")
+		self.save_settings()
 	##~~ AssetPlugin mixin
 
 	def get_assets(self):
