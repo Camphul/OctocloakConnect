@@ -11,15 +11,23 @@ from __future__ import absolute_import
 
 import octoprint.plugin
 
-class OctocloakconnectPlugin(octoprint.plugin.SettingsPlugin,
-                             octoprint.plugin.AssetPlugin,
-                             octoprint.plugin.TemplatePlugin):
+
+class OctocloakconnectPlugin(octoprint.plugin.StartupPlugin,
+							 octoprint.plugin.SettingsPlugin,
+							 octoprint.plugin.AssetPlugin,
+							 octoprint.plugin.TemplatePlugin):
 
 	##~~ SettingsPlugin mixin
+	def on_after_startup(self):
+		self._logger.info("OctocloakConnect AfterStartup Hook (more: %s)" % self._settings.get(["proxyIp"]))
 
 	def get_settings_defaults(self):
 		return dict(
-			# put your plugin's default settings here
+			proxyIp="henlo from proxyIp",
+			headers=dict(
+				user="X-Vouch-User",
+				authorization="Authorization"
+			)
 		)
 
 	##~~ AssetPlugin mixin
@@ -32,6 +40,9 @@ class OctocloakconnectPlugin(octoprint.plugin.SettingsPlugin,
 			css=["css/OctocloakConnect.css"],
 			less=["less/OctocloakConnect.less"]
 		)
+
+	def get_template_vars(self):
+		return dict(url=self._settings.get(["proxyIp"]))
 
 	##~~ Softwareupdate hook
 
@@ -64,9 +75,10 @@ __plugin_name__ = "Octocloakconnect Plugin"
 # Starting with OctoPrint 1.4.0 OctoPrint will also support to run under Python 3 in addition to the deprecated
 # Python 2. New plugins should make sure to run under both versions for now. Uncomment one of the following
 # compatibility flags according to what Python versions your plugin supports!
-#__plugin_pythoncompat__ = ">=2.7,<3" # only python 2
-#__plugin_pythoncompat__ = ">=3,<4" # only python 3
-#__plugin_pythoncompat__ = ">=2.7,<4" # python 2 and 3
+# __plugin_pythoncompat__ = ">=2.7,<3" # only python 2
+# __plugin_pythoncompat__ = ">=3,<4" # only python 3
+__plugin_pythoncompat__ = ">=2.7,<4"  # python 2 and 3
+
 
 def __plugin_load__():
 	global __plugin_implementation__
@@ -76,4 +88,3 @@ def __plugin_load__():
 	__plugin_hooks__ = {
 		"octoprint.plugin.softwareupdate.check_config": __plugin_implementation__.get_update_information
 	}
-

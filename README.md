@@ -1,6 +1,6 @@
 # OctoPrint-OctocloakConnect
 
-**TODO:** Describe what your plugin does.
+Ability to integrate keycloak through vouch-proxy using nginx reverse proxy.
 
 ## Setup
 
@@ -14,4 +14,11 @@ the plugin manager.
 
 ## Configuration
 
-**TODO:** Describe your plugin's configuration options (if any).
+```yaml
+octocloakconnect:
+    proxyIp: 192.168.1.1
+    headers:
+      user: X-Vouch-User
+      authorization: Authorization
+
+```
