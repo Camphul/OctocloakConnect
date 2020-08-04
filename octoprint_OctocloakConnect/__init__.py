@@ -23,7 +23,7 @@ class OctocloakconnectPlugin(octoprint.plugin.StartupPlugin,
 
 	def get_settings_defaults(self):
 		return dict(
-			proxyIp="henlo from proxyIp",
+			proxy="localhost",
 			headers=dict(
 				user="X-Vouch-User",
 				authorization="Authorization"
@@ -42,7 +42,7 @@ class OctocloakconnectPlugin(octoprint.plugin.StartupPlugin,
 		)
 
 	def get_template_vars(self):
-		return dict(url=self._settings.get(["proxyIp"]))
+		return dict(url=self._settings.get(["proxy"]))
 
 	##~~ Softwareupdate hook
 
