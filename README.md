@@ -16,7 +16,7 @@ the plugin manager.
 
 ```yaml
 octocloakconnect:
-    proxyIp: 192.168.1.1
+    proxy: 192.168.1.1
     headers:
       user: X-Vouch-User
       authorization: Authorization

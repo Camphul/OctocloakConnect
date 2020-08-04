@@ -13,13 +13,14 @@ import octoprint.plugin
 
 
 class OctocloakconnectPlugin(octoprint.plugin.StartupPlugin,
+							 octoprint.plugin.ShutdownPlugin,
 							 octoprint.plugin.SettingsPlugin,
 							 octoprint.plugin.AssetPlugin,
 							 octoprint.plugin.TemplatePlugin):
 
 	##~~ SettingsPlugin mixin
 	def on_after_startup(self):
-		self._logger.info("OctocloakConnect AfterStartup Hook (more: %s)" % self._settings.get(["proxyIp"]))
+		self._logger.info("OctocloakConnect AfterStartup Hook (more: %s)" % self._settings.get(["proxy"]))
 
 	def get_settings_defaults(self):
 		return dict(
